@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const articleSchema = new mongoose.Schema(
   {
-    author: {
+    reporter: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
@@ -18,6 +18,12 @@ const articleSchema = new mongoose.Schema(
     },
     content: {
       type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      // enum:["Sports","Entertainment","Health","Technology","Business","General","National","International"],
+      trim: true,
       required: true,
     },
     images: {
@@ -41,6 +47,5 @@ const articleSchema = new mongoose.Schema(
 
 // Add indexes for optimization
 articleSchema.index({ title: 1 });
-articleSchema.index({ date: -1 });
 
 export default mongoose.model("Article", articleSchema);

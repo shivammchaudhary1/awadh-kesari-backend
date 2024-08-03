@@ -1,7 +1,7 @@
-import userRoutes from "./user.routes.js";
+import authRoutes from "./auth.routes.js";
 
 const allRoutes = (app) => {
-  app.use("/users", userRoutes);
+  app.use("/api/auth", authRoutes);
 };
 
 export { allRoutes };

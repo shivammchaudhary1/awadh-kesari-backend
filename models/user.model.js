@@ -18,14 +18,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    mobile: {
+      type: String,
+      trim: true,
+    },
     status: {
       type: String,
-      enum: ["active", "inactive"],
+      enum: ["active", "inactive", "banned", "blocked"],
       default: "active",
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
+      enum: ["admin", "user", "reporter"],
       default: "user",
     },
   },
@@ -38,4 +42,5 @@ const userSchema = new mongoose.Schema(
 // Indexes
 userSchema.index({ email: 1 });
 
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+export default User;
