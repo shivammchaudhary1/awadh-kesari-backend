@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const articleSchema = new mongoose.Schema(
   {
-    reporter: {
+    reporterId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
@@ -28,15 +28,17 @@ const articleSchema = new mongoose.Schema(
     },
     images: {
       type: [String], // Corrected type declaration
-      validate: {
-        validator: function (arr) {
-          return arr.every((img) => typeof img === "string");
-        },
-        message: "All images must be strings.",
-      },
+      default: [],
+      // validate: {
+      //   validator: function (arr) {
+      //     return arr.every((img) => typeof img === "string");
+      //   },
+      //   message: "All images must be strings.",
+      // },
     },
     videoLink: {
       type: String,
+      default: "",
     },
   },
   {
@@ -47,5 +49,6 @@ const articleSchema = new mongoose.Schema(
 
 // Add indexes for optimization
 articleSchema.index({ title: 1 });
+articleSchema.index({ reporterId: 1 });
 
 export default mongoose.model("Article", articleSchema);
