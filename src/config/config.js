@@ -4,12 +4,12 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import { allRoutes } from "../routes/all.routes.js";
-
+import environmentConfig from "./env/environmentConfig.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI;
+
+const { PORT, MONGO_URI } = environmentConfig;
 
 // Middleware
 app.use(cors());
