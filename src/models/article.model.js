@@ -40,6 +40,38 @@ const articleSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    verified: {
+      type: Boolean,
+      default: false, // Article is not verified by default
+    },
+    verifiedBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
+    verifiedAt: {
+      type: Date,
+    },
+    status: {
+      type: String,
+      enum: ["draft", "published", "rejected"],
+      default: "draft",
+    },
+    rejectionReason: {
+      type: String,
+    },
+    rejectionDate: {
+      type: Date,
+    },
+    rejectionBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
+    // comments: [
+    //   {
+    //     type: mongoose.Types.ObjectId,
+    //     ref: "Comment",
+    //   },
+    // ],
   },
   {
     versionKey: false,

@@ -40,6 +40,7 @@ const createArticle = async (req, res) => {
 };
 
 // Get All Articles with Pagination
+
 const getAllArticles = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
@@ -55,14 +56,15 @@ const getAllArticles = async (req, res) => {
         .json({ message: "Page and limit must be positive integers" });
     }
 
-    // Fetch articles
-    const articles = await Article.find()
+    // Fetch articles that are verified
+    const articles = await Article.find({ verified: true })
+      .sort({ createdAt: -1 }) // Optional: Sort by creation date in descending order
       .skip((pageNumber - 1) * limitNumber)
       .limit(limitNumber)
       .exec();
 
-    // Fetch total count for pagination info
-    const totalCount = await Article.countDocuments();
+    // Fetch total count of verified articles for pagination info
+    const totalCount = await Article.countDocuments({ verified: true });
 
     return res.status(200).json({
       totalCount,
